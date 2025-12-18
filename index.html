@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 <html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>注意喚起</title>
+</head>
 <body>
-<button onclick="start()">通知開始</button>
+  <button onclick="start()">注意喚起を開始</button>
 
-<script>
-function start() {
-  Notification.requestPermission().then(permission => {
-    if (permission === "granted") {
-      setInterval(() => {
-        new Notification("メッセージ", {
-          body: "この文章を表示しています"
-        });
-      }, 60000); // 1分ごと
+  <script>
+    function start() {
+      Notification.requestPermission().then(permission => {
+        if (permission === "granted") {
+          setInterval(() => {
+            new Notification("⚠ 注意", {
+              body: "姿勢を正しましょう。画面から目を離してください。"
+            });
+          }, 300000); // 5分ごと
+        }
+      });
     }
-  });
-}
-</script>
+  </script>
 </body>
 </html>
+
