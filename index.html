@@ -1,35 +1,20 @@
-async function normalizeText(text) {
-  const response = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
-    },
-    body: JSON.stringify({
-      model: "gpt-4.1-mini",
-      messages: [
-        {
-          role: "system",
-          content: "あなたは文章校正の専門家です。"
-        },
-        {
-          role: "user",
-          content: `
-以下の文章について、
-・方言や口語表現を標準語に直す
-・文法を整える
-・意味を変えずに簡潔で読みやすくする
-以上を行ってください。
+<!DOCTYPE html>
+<html lang="ja">
+<body>
+<button onclick="start()">通知開始</button>
 
-文章：
-${text}
-`
-        }
-      ],
-      temperature: 0.2
-    })
+<script>
+function start() {
+  Notification.requestPermission().then(permission => {
+    if (permission === "granted") {
+      setInterval(() => {
+        new Notification("メッセージ", {
+          body: "この文章を表示しています"
+        });
+      }, 60000); // 1分ごと
+    }
   });
-
-  const data = await response.json();
-  return data.choices[0].message.content;
 }
+</script>
+</body>
+</html>
